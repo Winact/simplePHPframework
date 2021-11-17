@@ -1,0 +1,31 @@
+<Files *.php>
+	Deny from all
+	SetEnvIfNoCase X-Requested-With XMLHttpRequest ajax
+	Allow from env=ajax
+</Files>
+<Files *.ini>
+	Deny from all
+</Files>
+<Files index.php>
+	Allow from all
+</Files>
+
+DirectoryIndex index.php
+
+# enable apache rewrite engine
+RewriteEngine on
+
+# set your rewrite base
+# Edit this in your init method too if you script lives in a subfolder
+RewriteBase /
+
+# Deliver the folder or file directly if it exists on the server
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+
+# route every request to index.php
+RewriteRule ^(.*)$ public/index.php?q=$1 [L]
+
+# disable indexing of directories
+Options -Indexes
