@@ -6,6 +6,10 @@ public/*
 public/*.*
 !public/index.php
 
+app/configs/*
+app/configs/*.*
+!app/configs/demonstration.ini
+
 ##### Windows
 # Windows thumbnail cache files
 Thumbs.db
