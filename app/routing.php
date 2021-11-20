@@ -77,7 +77,10 @@ class routing {
             $routeURI = explode("/", $routeURI);
             $URL = explode("/", $_SERVER["REQUEST_URI"]);
             $count = count($URL);
+            # functions::print($URL);
+
             foreach($URL as $urlKey => $urlValue) {
+                functions::print($routeURI);
                 if(self::urlRouteParameters((($routeURI[$urlKey] ?? ""))) == true) {
                     $count--;
                 } elseif($urlValue == ($routeURI[$urlKey] ?? "")) {
@@ -85,11 +88,11 @@ class routing {
                 }
             }
             functions::debug("count: " . $count);
-            if($count == 0) {
+            # count($routeURI) == count($URL) -> if request_uri is smaller than routeURI, prevent to find the page
+            if($count == 0 && count($routeURI) == count($URL)) {
                 $pageFound = true;
                 if(is_array($routeFILE)) {
                     if(array_key_exists($_SERVER["REQUEST_METHOD"], $routeFILE)) {
-                        echo "test";
                         self::loadFile($routeFILE[$_SERVER["REQUEST_METHOD"]]);
                     } else {
                         include(root . "/resources/errors/404.html");
@@ -115,10 +118,6 @@ class routing {
             include(root . "/resources/errors/404.html");
             http_response_code(404);
         }
-    }
-
-    static function temp() {
-        print("<pre>".print_r(self::$route,true)."</pre>"); 
     }
 
     static function redirect($request, $redirect, $statusCode = false) {

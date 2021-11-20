@@ -45,7 +45,7 @@ class database {
      * @return first index of the results.
      */
     function getOne() {
-        self::$str = self::$str->fetch();
+        self::$str = self::$str->fetch(PDO::FETCH_ASSOC);
         return self::$str;
     }
 

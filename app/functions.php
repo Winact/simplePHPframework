@@ -4,7 +4,9 @@ class functions {
     static function debug($message) {
         echo "<script>console.log('" . $message .  "')</script>";
     }
-    
+    static function print($array) {
+        print("<pre>".print_r($array,true)."</pre>"); 
+    }
     static function ipaddress() {
         return $_SERVER['HTTP_CLIENT_IP']
         ?? $_SERVER['HTTP_X_FORWARDED_FOR']
